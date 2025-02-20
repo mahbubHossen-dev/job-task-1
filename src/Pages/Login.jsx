@@ -1,57 +1,66 @@
 
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Social from '../components/Social';
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
+    const { user, setUser, signInUser } = useAuth()
+
+    const location = useLocation()
+    const navigate = useNavigate()
+
+    const handleLogin = (e) => {
+        e.preventDefault()
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+
+        signInUser(email, password)
+            .then(result => {
+                setUser(result.user)
+                toast.success("Welcome back! You have successfully logged in.")
+                
+                navigate(`${location.state ? location.state : '/'}`)
+            })
+            .catch(err => {
+                toast.error(err.message)
+                
+            })
+    }
+
+    
+
+
+
     return (
-        <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M4 6h16M4 12h8m-8 6h16" />
-                        </svg>
+        <div className='bg-[#F3F4F6] pt-24 pb-6 dark:bg-[#0F172A]'>
+            <div className="card bg-base-100 w-full max-w-md mx-auto shrink-0 shadow-2xl">
+                <h1 className="text-2xl font-bold text-center -mb-6 pt-4">Login now!</h1>
+                <form onSubmit={handleLogin} className="card-body">
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input type="email" name='email' placeholder="email" className="input input-bordered bg-[#D1D5DB]" required />
                     </div>
-                    <ul
-                        tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                        <li><a>Item 1</a></li>
-                        <li>
-                            <a>Parent</a>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Item 3</a></li>
-                    </ul>
-                </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
-            </div>
-            <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
-                    <li><a>Item 1</a></li>
-                    <li>
-                        <details>
-                            <summary>Parent</summary>
-                            <ul className="p-2">
-                                <li><a>Submenu 1</a></li>
-                                <li><a>Submenu 2</a></li>
-                            </ul>
-                        </details>
-                    </li>
-                    <li><a>Item 3</a></li>
-                </ul>
-            </div>
-            <div className="navbar-end">
-                <a className="btn">Button</a>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input type="password" name='password' placeholder="password" className="input input-bordered bg-[#D1D5DB]" required />
+                        <label className="label">
+                            <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+                        </label>
+                    </div>
+                    <div className="form-control mt-2">
+                        <button className="btn bg-[#3B82F6] hover:bg-[#1F2937] text-white">Login</button>
+                    </div>
+
+                </form>
+                <Social></Social>
+                <p className='text-center text-gray-500 py-4'>Don&apos;t have an account?  <Link to='/register' state={location.state} className='font-medium border-b-2 text-[#1F2937]'>Register here</Link></p>
+
             </div>
         </div>
     );

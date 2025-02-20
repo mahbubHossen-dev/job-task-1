@@ -1,10 +1,14 @@
-import React from 'react';
-import Login from '../Pages/Login';
+
+import { Outlet } from 'react-router-dom';
+import Navbar from './../components/Navbar';
 
 const MainLayout = () => {
+
     return (
         <div>
-            <Login></Login>
+            <Navbar></Navbar>
+            <Outlet></Outlet>
+            
         </div>
     );
 };
