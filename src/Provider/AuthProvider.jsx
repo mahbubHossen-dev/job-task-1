@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
             // else{
             //     setUser(null)
             // }
+            setLoading(false)
 
         })
 
