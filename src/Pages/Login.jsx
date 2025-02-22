@@ -34,7 +34,7 @@ const Login = () => {
 
 
     return (
-        <div className='bg-[#F3F4F6] pt-24 pb-6 dark:bg-[#0F172A]'>
+        <div className='bg-[#F3F4F6] pt-12 pb-6 dark:bg-[#0F172A]'>
             <div className="card bg-base-100 w-full max-w-md mx-auto shrink-0 shadow-2xl">
                 <h1 className="text-2xl font-bold text-center -mb-6 pt-4">Login now!</h1>
                 <form onSubmit={handleLogin} className="card-body">
@@ -58,7 +58,9 @@ const Login = () => {
                     </div>
 
                 </form>
-                <Social></Social>
+                <div className="form-control px-8">
+                    <Social></Social>
+                </div>
                 <p className='text-center text-gray-500 py-4'>Don&apos;t have an account?  <Link to='/register' state={location.state} className='font-medium border-b-2 text-[#1F2937]'>Register here</Link></p>
 
             </div>

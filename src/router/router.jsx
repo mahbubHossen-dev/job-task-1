@@ -5,6 +5,7 @@ import Register from "../Pages/Register";
 import Home from "../Pages/Home";
 import PrivateLayout from "../MainLayout/PrivateLayout";
 import AddTask from "../Pages/AddTask";
+import Update from "../Pages/Update";
 
 const router = createBrowserRouter([
     {
@@ -26,7 +27,11 @@ const router = createBrowserRouter([
             {
                 path: '/addTask',
                 element: <PrivateLayout><AddTask></AddTask></PrivateLayout>
-            }
+            },
+            {
+                path: '/update/:id',
+                element: <PrivateLayout><Update></Update></PrivateLayout>
+            },
         ]
     },
 

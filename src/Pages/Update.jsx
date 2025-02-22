@@ -1,41 +1,45 @@
 import axios from 'axios';
 import React from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const AddTask = () => {
-
-    const handleSubmitTask =async (e) => {
+const Update = () => {
+    const {id} = useParams()
+    console.log(id)
+    const handleUpdate =async (e) => {
+        // console.log(id)
         e.preventDefault()
         const form = e.target
         const title = form.title.value
         const category = form.category.value
         const description = form.description.value
-        const taskData = {
+        const updateData = {
             title,
             category, 
-            description,
-            timestamp: new Date()
+            description
         }
+
+        console.log(updateData)
         try {
-            const {data} = await axios.post('http://localhost:5000/tasks', taskData)
-            if(data.insertedId){
-                toast.success('Task Added successfully')
+            const {data} = await axios.put(`http://localhost:5000/taskUpdate/${id}`, updateData)
+            if(data.modifiedCount > 0){
+                toast.success('Updated Successfully!')
             }
         } catch (error) {
             console.log(error)
         }
     }
+
     return (
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl mx-auto">
-            <h2 className='text-2xl font-medium text-center'>Add Task</h2>
-            <form onSubmit={handleSubmitTask} className="card-body">
+            <h2 className='text-2xl font-medium text-center'>Update Task</h2>
+            <form onSubmit={(e) => handleUpdate (e)} className="card-body">
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>
                     </label>
                     <input type="text" placeholder="title" name='title' className="input input-bordered" required />
                 </div>
-
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Category</span>
@@ -55,11 +59,11 @@ const AddTask = () => {
 
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Add</button>
+                    <button className="btn bg-blue-950 text-white">Update</button>
                 </div>
             </form>
         </div>
     );
 };
 
-export default AddTask;
+export default Update;
