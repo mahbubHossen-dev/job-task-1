@@ -3,14 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
 import Social from '../components/Social';
+import axios from 'axios';
 
 const Register = () => {
 
-    const { user, createUser, updateUserProfile } = useAuth()
+    const { user, createUser, updateUserProfile, setLoading} = useAuth()
     const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
-    
+
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -22,35 +23,42 @@ const Register = () => {
 
         setErrorMessage('')
 
-        if (password.length < 6) {
-            return setErrorMessage('Password must contain at least 6 characters')
-        }
+        // if (password.length < 6) {
+        //     return setErrorMessage('Password must contain at least 6 characters')
+        // }
 
-        const lowerRegex = /^(?=.*[a-z]).+$/;
-        const upperRegex = /^(?=.*[A-Z]).+$/;
+        // const lowerRegex = /^(?=.*[a-z]).+$/;
+        // const upperRegex = /^(?=.*[A-Z]).+$/;
 
-        if (!lowerRegex.test(password)) {
-            return setErrorMessage('Password must contain at least one Lower Case')
-        }
+        // if (!lowerRegex.test(password)) {
+        //     return setErrorMessage('Password must contain at least one Lower Case')
+        // }
 
-        if (!upperRegex.test(password)) {
-            return setErrorMessage('Password must contain at least one Upper Case')
-        }
+        // if (!upperRegex.test(password)) {
+        //     return setErrorMessage('Password must contain at least one Upper Case')
+        // }
 
         createUser(email, password)
-            .then(result => {
-                updateUserProfile({ displayName: name, photoURL: photo, email })
+            .then(async (result) => {
+                updateUserProfile({ displayName: name, photoURL: photo })
+                const user = {
+                    user_id: result.user?.uid,
+                    name: name,
+                    email: result.user?.email,
+                }
+                setLoading()
+                await axios.post(`http://localhost:5000/users/${result.user?.email}`, user)
                 toast.success("Account created successfully! Welcome to the platform.")
                 navigate(`${location.state ? location.state : '/'}`)
-                
+                console.log(result)
             })
             .catch(err => {
                 toast.error(err.message)
-                
+
             })
     }
 
-    
+
 
     return (
         <div className="hero bg-base-200 min-h-screen pt-24 pb-6 dark:bg-[#0F172A]">

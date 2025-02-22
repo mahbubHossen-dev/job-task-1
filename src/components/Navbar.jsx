@@ -12,7 +12,10 @@ const Navbar = () => {
 
   const links = <>
     {
-      user ? <li><NavLink to={'/'}>Home</NavLink></li> : ""
+      user ? <>
+      <li><NavLink to={'/'}>Home</NavLink></li>
+      <li><NavLink to={'/addTask'}>Add Task</NavLink></li>
+      </> : ""
     }
   </>
 

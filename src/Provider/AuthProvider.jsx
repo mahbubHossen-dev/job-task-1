@@ -33,12 +33,9 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider)
     }
 
-    const updateUserProfile = (name, photoURL) => {
+    const updateUserProfile = (updatedData) => {
         setLoading(true)
-        return updateProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: photoURL,
-        })
+        return updateProfile(auth.currentUser, updatedData)
     }
 
     useEffect(() => {
