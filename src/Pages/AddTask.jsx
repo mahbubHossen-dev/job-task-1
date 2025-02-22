@@ -17,7 +17,7 @@ const AddTask = () => {
             timestamp: new Date()
         }
         try {
-            const {data} = await axios.post('http://localhost:5000/tasks', taskData)
+            const {data} = await axios.post('https://ph-task-server-zeta.vercel.app/tasks', taskData)
             if(data.insertedId){
                 toast.success('Task Added successfully')
             }

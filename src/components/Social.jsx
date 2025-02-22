@@ -22,7 +22,7 @@ const Social = () => {
                 //     image: result.user?.photoURL,
                 //     email: result.user?.email,
                 // })
-                await axios.post(`http://localhost:5000/users/${result.user?.email}`, user)
+                await axios.post(`https://ph-task-server-zeta.vercel.app/users/${result.user?.email}`, user)
                 navigate(location.state ? `${location.state}` : '/')
                 toast.success("Welcome back.")
             })

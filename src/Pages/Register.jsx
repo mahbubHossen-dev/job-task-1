@@ -47,7 +47,7 @@ const Register = () => {
                     email: result.user?.email,
                 }
                 setLoading()
-                await axios.post(`http://localhost:5000/users/${result.user?.email}`, user)
+                await axios.post(`https://ph-task-server-zeta.vercel.app/users/${result.user?.email}`, user)
                 toast.success("Account created successfully! Welcome to the platform.")
                 navigate(`${location.state ? location.state : '/'}`)
                 console.log(result)

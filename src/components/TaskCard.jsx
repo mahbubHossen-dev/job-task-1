@@ -19,7 +19,7 @@ const TaskCard = ({ task, refetch }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
 
-                const { data } = await axios.delete(`http://localhost:5000/task/${id}`)
+                const { data } = await axios.delete(`https://ph-task-server-zeta.vercel.app/task/${id}`)
 
                 if (data.deletedCount > 0) {
 
@@ -51,7 +51,7 @@ const TaskCard = ({ task, refetch }) => {
 
     //     console.log(updateData)
     //     try {
-    //         const {data} = await axios.patch(`http://localhost:5000/taskUpdate/${id}`, updateData)
+    //         const {data} = await axios.patch(`https://ph-task-server-zeta.vercel.app/taskUpdate/${id}`, updateData)
     //         if(data.modifiedCount > 0){
     //             toast.success('Updated Successfully!')
     //             document.getElementById('my_modal_1').close()

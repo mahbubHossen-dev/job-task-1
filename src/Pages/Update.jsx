@@ -4,9 +4,9 @@ import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Update = () => {
-    const {id} = useParams()
+    const { id } = useParams()
     console.log(id)
-    const handleUpdate =async (e) => {
+    const handleUpdate = async (e) => {
         // console.log(id)
         e.preventDefault()
         const form = e.target
@@ -15,14 +15,14 @@ const Update = () => {
         const description = form.description.value
         const updateData = {
             title,
-            category, 
+            category,
             description
         }
 
         console.log(updateData)
         try {
-            const {data} = await axios.put(`http://localhost:5000/taskUpdate/${id}`, updateData)
-            if(data.modifiedCount > 0){
+            const { data } = await axios.put(`https://ph-task-server-zeta.vercel.app/taskUpdate/${id}`, updateData)
+            if (data.modifiedCount > 0) {
                 toast.success('Updated Successfully!')
             }
         } catch (error) {
@@ -33,7 +33,7 @@ const Update = () => {
     return (
         <div className="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl mx-auto">
             <h2 className='text-2xl font-medium text-center'>Update Task</h2>
-            <form onSubmit={(e) => handleUpdate (e)} className="card-body">
+            <form onSubmit={(e) => handleUpdate(e)} className="card-body">
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Title</span>
@@ -45,12 +45,12 @@ const Update = () => {
                         <span className="label-text">Category</span>
                     </label>
                     <select name='category' className="select select-bordered w-full ">
-                    <option value={'To-Do'}>To-Do</option>
-                    <option value={'In Progress'}>In Progress</option>
-                    <option value={'Done'}>Done</option>
-                </select>
+                        <option value={'To-Do'}>To-Do</option>
+                        <option value={'In Progress'}>In Progress</option>
+                        <option value={'Done'}>Done</option>
+                    </select>
                 </div>
-                
+
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Description</span>
